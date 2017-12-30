@@ -61,13 +61,13 @@ class EmolBot(BaseBot):
         parsed_data = []
 
         for li in lis:
-            _time = li.find(class_="bus_txt_fuente").string
+            _time = li.find(class_="bus_txt_fuente").string[:5]
             category = li.find(id="linkSeccion").string
             bajada = li.find(id="BajadaNoticia").string
             link = li.find(id="LinkNoticia")
             parsed_data.append({
-                "title": link.string,
-                "bajada": bajada,
+                "headline": link.string,
+                "subhead": bajada,
                 "category": category,
                 "time": _time,
                 "url": link["href"],
