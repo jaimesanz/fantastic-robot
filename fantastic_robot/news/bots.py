@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
+from bs4 import BeautifulSoup
+from selenium import webdriver
+
+import time
 from abc import ABC, abstractmethod
+from urllib import request
 
 
 class BaseBot(ABC):
@@ -36,8 +41,30 @@ class EmolBot(BaseBot):
         return "http://www.emol.com/noticias/"
 
     def fetch(self):
-        print("wena")
-        return "asf"
+        driver = webdriver.PhantomJS()
+        driver.get(self.get_source_url())
+        time.sleep(5)
+        html_source = driver.page_source
+        soup = BeautifulSoup(html_source, "html.parser")
+
+        return soup
 
     def parse(self):
-        return "sdf"
+        soup = self.fetch()
+        lis = soup.find(id='listNews').find_all('li')
+
+        parsed_data = []
+
+        for li in lis:
+            _time = li.find(class_="bus_txt_fuente").string
+            category = li.find(id="linkSeccion").string
+            bajada = li.find(id="BajadaNoticia").string
+            link = li.find(id="LinkNoticia")
+            parsed_data.append({
+                "time": _time,
+                "category": category,
+                "bajada": bajada,
+                "url": link["href"],
+                "title": link.string
+            })
+        return parsed_data
