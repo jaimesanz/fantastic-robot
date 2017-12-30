@@ -6,7 +6,7 @@
 
 {% block 'body' %}
     {% for d in data %}
-        <div>{{d.time}}</div>
+        <div>{{d.date}} | {{d.time}}</div>
         <h3><a href="{{d.url}}" target="_blank">{{d.headline}}</a></h3>
         <h4>{{d.subhead}}</h4>
         <div>{{d.category}}</div>
