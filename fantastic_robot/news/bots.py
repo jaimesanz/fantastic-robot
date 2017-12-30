@@ -43,7 +43,7 @@ class EmolBot(BaseBot):
     """Bot that reads and parses news from EMOL."""
 
     def get_source_name(self):  # noqa
-        return "EL Mercurio"
+        return "El Mercurio"
 
     @classmethod
     def get_source_url(cls):  # noqa

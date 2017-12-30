@@ -6,7 +6,6 @@ from .bots import EmolBot
 
 def home(request):
     emol = EmolBot.fetch()
-    print(emol.parse())
     return render(request, 'news/home.html', {
         "data": emol.parse()
     })
