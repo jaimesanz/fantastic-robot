@@ -5,5 +5,11 @@ Noticias
 {% endblock 'title' %}
 
 {% block 'body' %}
-<p>Holas</p>
+    {% for d in data %}
+        <h3><a href="{{d.url}}" target="_blank">{{d.title}}</a></h3>
+        <h4>{{d.bajada}}</h4>
+        <div>{{d.category}}</div>
+        <div>{{d.source}}</div>
+        <hr>
+    {% endfor %}
 {% endblock 'body' %}
