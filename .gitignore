@@ -2,3 +2,5 @@
 /db.sqlite3
 .idea/*
 *.pyc
+/fantastic_robot/geckodriver.log
+/fantastic_robot/ghostdriver.log
