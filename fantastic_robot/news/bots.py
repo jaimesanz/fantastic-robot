@@ -2,6 +2,7 @@
 from django.utils import timezone
 
 import time
+import re
 from abc import ABC, abstractmethod, abstractclassmethod
 
 from bs4 import BeautifulSoup
@@ -66,11 +67,13 @@ class EmolBot(BaseBot):
 
         for li in lis:
             _time = li.find(class_="bus_txt_fuente").string[:5]
-            # TODO properly extract date from source!
-            _date = timezone.now().today().date()
             category = li.find(id="linkSeccion").string
             bajada = li.find(id="BajadaNoticia").string
             link = li.find(id="LinkNoticia")
+
+            regex = re.compile("http://www\.emol\.com/noticias/.*/\d{4}/\d{2}/\d{2}")
+            match = regex.match(link["href"])
+            _date = timezone.datetime.strptime(match.group()[-10:], "%Y/%m/%d").date()
             parsed_data.append(
                 ArticleLink(
                     headline=link.string,
